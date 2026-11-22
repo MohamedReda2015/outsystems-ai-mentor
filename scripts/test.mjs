@@ -29,6 +29,10 @@ for (const r of ["MWS-01", "MWG-04", "MWP-07", "MWG-06", "MWG-02", "MWV-01", "MW
 t("bad state exits 1", bad.code === 1);
 
 for (const r of ["MWS-06", "MWG-10"]) t(`bad state flags ${r}`, br.has(r));
+const bg2 = run(ex("bad-state.json"), "--gate", "G2");
+t("bad state --gate G2 flags MWP-09 (unknown role, screen without role)", rules(bg2).has("MWP-09"));
+const gg2 = run(ex("good-state.json"), "--gate", "G2");
+t("good state --gate G2 passes the spec check", gg2.code === 0);
 t("bad state flags MWG-09 (writes without change log)", br.has("MWG-09"));
 
 const tg1 = run(tpl, "--gate", "G1");

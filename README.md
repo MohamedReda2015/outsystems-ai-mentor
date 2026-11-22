@@ -1,7 +1,7 @@
 # OutSystems AI Mentor
 
 [![CI](https://github.com/MohamedReda2015/outsystems-ai-mentor/actions/workflows/ci.yml/badge.svg)](https://github.com/MohamedReda2015/outsystems-ai-mentor/actions/workflows/ci.yml)
-![version](https://img.shields.io/badge/version-1.1.0-blue)
+![version](https://img.shields.io/badge/version-1.2.0-blue)
 ![platform](https://img.shields.io/badge/OutSystems-11-red)
 ![license](https://img.shields.io/badge/license-MIT-green)
 

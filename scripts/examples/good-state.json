@@ -9,6 +9,14 @@
     "G3": { "status": "passed", "date": "2026-11-05", "by": "Tech Lead" },
     "G5": { "status": "open" }
   },
+  "roles": [ { "id": "Employee" }, { "id": "Manager" }, { "id": "HRAdmin" } ],
+  "entities": ["LeaveRequest", "LeaveRequestHistory", "LeaveType", "LeaveStatus"],
+  "screens": [
+    { "name": "MyRequests", "roles": ["Employee"] },
+    { "name": "LeaveRequestEdit", "roles": ["Employee"] },
+    { "name": "ApprovalQueue", "roles": ["Manager"] },
+    { "name": "LeaveTypes", "roles": ["HRAdmin"] }
+  ],
   "questions": [
     { "id": "Q-01", "text": "Can a manager approve their own request?", "severity": "Blocker", "status": "answered", "answer": "No" },
     { "id": "Q-02", "text": "Is the leave-type list maintained by HR?", "severity": "Major", "status": "answered", "answer": "Yes, lookup entity" },

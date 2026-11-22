@@ -50,6 +50,9 @@ See `references/incremental-delivery.md`.
 ### 10. Open questions and assumptions
 Question ID, text, severity, recommendation, status.
 
+## Spec check (`MWP-09`)
+Before showing the summary: every screen names at least one role defined in §2; every role appears on a screen or use case; every entity in §3 is listed with attributes; relationships and integrations are stated or flagged as TBC. Mentor-style generators fail most often on exactly these gaps (the official ODC spec-driven-build skill checks the same before generating). With `roles` and `screens` in `workflow-state.json`, `check-workflow.mjs --gate G2` checks the screen ↔ role part.
+
 ## Review questions before asking for approval
 - Can every Must AC be traced to a feature, and every feature to at least one screen or use case?
 - Does every status in the state machine have an action that enters it and one that leaves it (except final states)?

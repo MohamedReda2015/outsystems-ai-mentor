@@ -7,6 +7,8 @@
     "G2": { "status": "open" },
     "G3": { "status": "passed", "date": "2026-11-05", "by": "Tech Lead" }
   },
+  "roles": [ { "id": "Requester" }, { "id": "Auditor" } ],
+  "screens": [ { "name": "RequestList", "roles": ["Requester"] }, { "name": "Dashboard", "roles": ["Director"] }, { "name": "Settings", "roles": [] } ],
   "questions": [ { "id": "Q-01", "severity": "Blocker", "status": "open" } ],
   "features": [ { "id": "F-01", "priority": "Must", "stories": [] } ],
   "acs": [ { "id": "AC-01", "feature": "F-09", "priority": "Must" } ],

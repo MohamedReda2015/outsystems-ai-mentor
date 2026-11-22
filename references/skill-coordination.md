@@ -38,5 +38,17 @@ Use these minimum fallbacks and say which skill is missing:
 - **No frontend / style guide**: blocks per business part; aggregates fetch only what's shown; loading/empty/error states; OutSystems UI patterns and theme classes; no inline styles.
 - **No official servicestudio-mcp-oml**: do not write through the MCP. Use MCP-R reads only and deliver changes as exact manual steps; ask the user to install the official skill.
 
-## 5. Rule-ID map (for citations)
+## 5. Optional helper skills (installed alongside, ranked below the house skills)
+Use them for the step named, only when the house skill doesn't already cover it, and never against a house rule (project > house > official > third-party):
+| Skill | Origin | Use in |
+|---|---|---|
+| `servicestudio-mcp-oml` | official O11 | every MCP read/write (required) |
+| `outsystems-debugging` | third-party | M8 defect diagnosis (house method: architecture `OPS-09`) |
+| `outsystems-code-review` | third-party | M8 two-axis review (`MWV-08`) on a work item |
+| `outsystems-data-model` | third-party | M2 data-model interview when the business wants one-question-at-a-time design; results go into the App Specification |
+| `outsystems-lifetime-deploy` | third-party | M9 LifeTime plan preparation; starting a deployment stays a human decision (architecture `OPS-08`) |
+| `outsystems`, `outsystems-spec-driven-build`, `outsystems-design-to-app` … | official ODC | **ODC only** — never on O11 |
+Third-party standards skills (action flows, CRUD, SQL, integrations, timers, module naming) overlap with the house conventions; where they differ, the house rule wins.
+
+## 6. Rule-ID map (for citations)
 `BRI/BRX/BRQ/BRC/BRS/BRM/BRT/BRR` brd-analysis · `RQA/RQV/RQC/RQP/RQI/RQT/RQD` user-story · `ARC/HSE/DAT/INT/UI/SEC/AUD/MNT/OPS/TST/PERF` architecture · `BNM/BLG/BTX/BDA/BIN/BER/BAS/BPF/BSC/BCF` backend · `NAM/STR/BLK/NAV/LCY/FET/STA/CLG/VAL/ERR/JSC/FSC/FPF/MOB/LOC/VER` frontend · `TOK/THM/LAY/RSP/CMP/FRM/LST/FDB/TXT/PRF/GOV` style guide · `PAR/PDS/PHA/PAA/PLT/PEX/PVR/POP/PSC/PNM` bpt · `CAR/CDF/CST/CAC/CSC/CSL/CUI/COP` cmf · `MWS/MWR/MWP/MWA/MWD/MWL/MWI/MWU/MWT/MWV/MWG`, lessons `MLL` — this skill.

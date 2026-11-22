@@ -17,6 +17,7 @@ Companion rules (`BR*`, `RQ*`, `ARC`, `SEC`, `BDA`, `BLG`, `FET`, `LAY`…) are 
 | MWS-04 | Blocker | No real personal data or secrets in prompts, requirements copies, sample data or module default values; secret site-property defaults are empty | artifact, model |
 | MWS-05 | Major | The live tool list is checked and the build's tool set recorded (early contract 1 `listApps`; later `listOpenModules` + `searchApps`; later still `openModule`/`closeModule`); where a live tool description differs from the official skill, the description wins | state, model |
 | MWS-06 | Blocker | The target environment is confirmed with the user (and `searchApps` where available), because the MCP does not report which environment an open module came from and the agent inherits the developer's publish rights; agent work is limited to Development by explicit agreement | state |
+| MWS-07 | Major | When both the O11 (Service Studio) and ODC MCP servers are connected and the request names neither platform, ask which one before any OutSystems call, read-only included (`RQI-13`) | state |
 
 ## MWR — Requirements (M1, G1)
 
@@ -39,6 +40,7 @@ Companion rules (`BR*`, `RQ*`, `ARC`, `SEC`, `BDA`, `BLG`, `FET`, `LAY`…) are 
 | MWP-06 | Major | Integrations (system, operation, direction, failure behaviour, test environment) and NFRs (security, performance, accessibility, languages/RTL) are stated | artifact |
 | MWP-07 | Blocker | G2: the user approved the App Specification (summary first, details on request) before any model write beyond M3 setup | state |
 | MWP-08 | Major | Delivery is split into thin vertical increments, each usable and testable on its own, foundation first, risk early | artifact, script |
+| MWP-09 | Major | Spec check before G2: every screen names at least one role the spec defines; every defined role is used by a screen or use case; entities are listed; missing relationships or integration details are flagged | artifact, script |
 
 ## MWA — Architecture (M3, G3)
 
@@ -56,7 +58,7 @@ Companion rules (`BR*`, `RQ*`, `ARC`, `SEC`, `BDA`, `BLG`, `FET`, `LAY`…) are 
 
 | ID | Severity | Rule | Check |
 |---|---|---|---|
-| MWD-01 | Blocker | Entities live in CS, are Public with Expose Read-Only, have an identifier with AutoNumber set, and are written only through CS/BL actions | model |
+| MWD-01 | Blocker | Entities live in CS, are Public with Expose Read-Only, and are written only through CS/BL actions; regular entities have an auto-number identifier, **static entities do not** (their ids must be identical in every environment, backend `BDA-14`) | model |
 | MWD-02 | Major | Foreign keys have an explicit delete rule; indexes exist for filters, sorts and uniqueness the spec names | model |
 | MWD-03 | Major | Lists the business maintains are entities with an admin path; static entities only for values code depends on | model, artifact |
 | MWD-04 | Major | Audit columns and soft delete follow the spec; seed and reference data come from idempotent ensure actions, verified after publish | model, app |
@@ -117,6 +119,7 @@ Companion rules (`BR*`, `RQ*`, `ARC`, `SEC`, `BDA`, `BLG`, `FET`, `LAY`…) are 
 | MWV-05 | Major | Handover lists every manual step, configuration value, test user and test data created, plus follow-ups | artifact |
 | MWV-06 | Blocker | G5: all increments at G4, regression passed, release acceptance approved by the user | state, script |
 | MWV-07 | Major | AI Mentor Studio analysis is recurrent (at least per increment once the code is in Development, not only before release); findings are fixed in the order Security → Performance → Architecture → Maintainability, including deprecated-element findings; trend recorded per increment | artifact, state |
+| MWV-08 | Major | The increment review's code review runs two independent axes — Standards (code vs companion checklists, without the story) and Spec (each AC Met / Partly met / Not found / Needs testing, citing element › node) — with out-of-scope changes reported and pre-existing debt kept apart (`RQT-12`) | artifact |
 
 ## MWG — Governance, MCP and coordination (all phases)
 

@@ -8,7 +8,7 @@ Each phase lists: **inputs**, **steps** (with the mark MCP-R / MCP-W / MAN / REV
 **Inputs**: the user's request, any documents, access to Service Studio.
 **Steps**
 1. Ask or confirm: O11 or ODC? Which environment (must be Development for writes)? Which app(s)? Green-field, brown-field, or extension of an existing feature? (`MWS-01`)
-2. Tooling check (MCP-R): MCP server started by the user (Edit > MCP Server; `ConnectionRefused` = not started) and the connection approved; contract number and live tool set noted (`listApps` vs `listOpenModules`/`searchApps` vs `openModule`) (`MWS-05`); official skill version noted. If the server is down, say so and continue with analysis only.
+2. Tooling check (MCP-R): MCP server started by the user (Edit > MCP Server; `ConnectionRefused` = not started) and the connection approved; contract number and live tool set noted (`listApps` vs `listOpenModules`/`searchApps` vs `openModule`) (`MWS-05`); official skill version noted. If the ODC MCP server is also connected and the user named neither platform, ask which one before any call (`MWS-07`). If the server is down, say so and continue with analysis only.
 3. Environment (`MWS-06`): ask which environment the open modules come from (the MCP cannot tell; `searchApps` names it where available) and agree that agent work stays in Development, because the agent inherits the developer's publish rights.
 4. Brown-field discovery (MCP-R): `searchApps` for the app list; for each relevant module, module overview, `getDataModel`, screen names, roles, site settings, timers, integrations; dependency map. Open consumer modules for impact (`MWS-02`).
 5. Record the context: module names and types, theme and layout, locales, roles, shared modules and owners (`MWS-03`).
@@ -30,7 +30,7 @@ Each phase lists: **inputs**, **steps** (with the mark MCP-R / MCP-W / MAN / REV
 
 ## M2 — App Specification → G2
 **Owner**: this skill (`references/app-specification.md`), drawing on the companion outputs.
-**Steps**: fill `templates/app-specification.md` sections 1–9 (`MWP-01`…`MWP-06`), propose increments (`MWP-08`), then present a one-page summary: roles, features per increment, entity list, screen list, key rules, integrations, risks, MAN steps expected.
+**Steps**: fill `templates/app-specification.md` sections 1–9 (`MWP-01`…`MWP-06`), propose increments (`MWP-08`), run the spec check (`MWP-09`: screens ↔ roles, entities, relationships, integrations; `check-workflow.mjs --gate G2` checks it when `roles` and `screens` are in the state), then present a one-page summary: roles, features per increment, entity list, screen list, key rules, integrations, risks, MAN steps expected.
 **Exit = G2**: explicit approval of the spec (`MWP-07`). Changes after G2 go through a change request (`references/incremental-delivery.md` §5).
 
 ## M3 — Architecture → G3
@@ -84,7 +84,7 @@ Edit-session discipline for the whole increment (`MWG-08`): agree that nobody ed
 1. (MCP-R) `getValidationMessages` on every touched module (`MWT-01`).
 2. (REV) Publish in dependency order (CS → BL → IS → CW → Front_End) on the user's yes; state merged/published (`MWT-02`).
 3. (MAN/browser) One test per AC plus negatives (`MWT-03`); each role's journey back to the entry point (`MWT-04`); data effects (`MWT-05`).
-4. BDDFramework tests for BL rules where planned (`MWT-06`), in the test module, pyramid-shaped (`MWT-09`); defects → fix → re-test (`MWT-08`).
+4. BDDFramework tests for BL rules where planned (`MWT-06`), in the test module, pyramid-shaped (`MWT-09`); defects → diagnose first (one falsifiable hypothesis at a time; architecture `OPS-09`) → fix → re-test (`MWT-08`).
 5. (MAN) AI Mentor Studio scan of the touched modules; fix Security → Performance → Architecture → Maintainability; record the trend (`MWV-07`).
 6. Implementation review (`templates/increment-review.md`) (`MWV-01`).
 **Exit = G4**: `node scripts/check-workflow.mjs … --gate G4` passes for the increment (`MWT-07`).

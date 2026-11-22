@@ -3,7 +3,7 @@ name: outsystems-ai-mentor
 description: OutSystems AI Mentor - an agent-independent, end-to-end delivery lifecycle for OutSystems 11 (O11) modelled on OutSystems Mentor (requirements, app specification, generate, validate, iterate) and run through the Service Studio MCP. Orchestrates the house skills - BRD analysis, user stories, 3-layer Canvas architecture, data model, logic, integrations, screens and style, testing and acceptance - with five gates, incremental vertical slices, an implementation review per increment, validation against requirements and acceptance criteria, and a capability matrix of what the O11 MCP can do (read GA, write Beta) versus manual work or human review. Includes an app-specification template and a workflow-state checker. Use it whenever an agent must build, extend or deliver an OutSystems 11 app or feature end to end, plan a release or resume a half-built app, even if the user only says "build this app", "generate the app from this BRD", "act like Mentor", "what's next" or "continue the build".
 license: MIT
 metadata:
-  version: 1.1.0
+  version: 1.2.0
   updated: 2026-11-22
   platform: OutSystems 11 (Reactive Web first; Mobile and Traditional Web noted) with the Service Studio MCP server (11.55.91+)
   agent-independent: true
@@ -90,7 +90,7 @@ Rules: tag every task in the increment plan with its mark (`MWG-02`); on the fir
 **Edit sessions and governance** (official design notes, community Ideas): the agent edits a **copy** of the module, so edits the user makes during a session are invisible to it — no human edits while a session is open, and restart the session after human edits or partial merges (`MWG-08`); sessions outlive the chat and are shared by every connected agent; reads time out at 120 s and writes at 300 s (`MWA-07`); the MCP cannot tell which **environment** a module came from and the agent inherits the developer's publish rights, while LifeTime has no MCP control — confirm the environment and keep work in Development (`MWS-06`); keep an **agent change log**, because the platform attributes changes to the developer (`MWG-09`).
 
 ### M0 — Setup and context
-1. Confirm **O11** (not ODC), Service Studio version, MCP server started and authorized, the official `servicestudio-mcp-oml` skill installed and its contract matching (`MWS-01`); record the live tool set (`MWS-05`); confirm the **environment** with the user, Development only (`MWS-06`).
+1. Confirm **O11** (not ODC), Service Studio version, MCP server started and authorized, the official `servicestudio-mcp-oml` skill installed and its contract matching (`MWS-01`); record the MCP contract and live tool set (`MWS-05`); if the ODC MCP server is also connected and the user named neither platform, ask which one before any call (`MWS-07`); confirm the **environment** with the user, Development only (`MWS-06`).
 2. **Green-field, brown-field or extension?** For brown-field, read the as-is with MCP-R: open modules, `searchApps`, data model, screens, roles, dependencies; open consumer modules yourself (the dependency map covers the open module only) (`MWS-02`, `RQA-02`).
 3. Record the platform context: app and module names, theme and layout to reuse, locales, roles, shared modules that need approval (`MWS-03`).
 4. Sanitize inputs: no real personal data or secrets in prompts or default values; the agent can read secret site-property defaults (`MWS-04`, `RQA-18`).
@@ -110,7 +110,7 @@ Fill `templates/app-specification.md` (`references/app-specification.md`):
 5. **Logic inventory**: use cases, rules, state machine (once for the app), async steps with mechanism (timer, Light BPT, BPT, CMF, outbox) (`MWP-05`, `PDS-01`).
 6. **Integrations and NFRs**: systems, direction, failure behaviour; security, performance, accessibility, languages/RTL (`MWP-06`).
 7. **Increments**: thin vertical slices, each usable and testable, foundation first (`MWP-08`, `references/incremental-delivery.md`).
-Show it as a one-page summary first, details on request; wait for approval (`MWP-07`).
+Run the spec check — every screen has a defined role, every role is used, entities listed, missing relationships or integrations flagged (`MWP-09`) — then show a one-page summary first, details on request; wait for approval (`MWP-07`).
 
 ### M3 — Architecture (G3)
 Hand over to **outsystems-architecture**: Canvas layer per module, house chain Front_End → CW → BL → CS (+ `_IS`, `_Th`, `_Lib`), apps and owners, no upward or side references, Reactive security (`MWA-01`…`MWA-03`, `ARC-*`). Validate the dependency list with the architecture skill's validator.
@@ -127,7 +127,7 @@ Plan the slice with `templates/increment-plan.md`: tasks per layer, each with mo
 | **M7 Screens & UI** | CW blocks with data actions and loading/empty/error states, server-computed `Can*` flags; Front_End screens on the existing layout, roles on every screen, menu, theme and patterns | frontend `FET-*`, `FSC-*`; style guide `LAY-*`, `FRM-*` | `MWU-01`…`MWU-06` |
 | **M8 Test & Validate** | TrueChange clean; one test per AC plus negatives and roles on published code; BDDFramework for BL rules in a test module (pyramid); AI Mentor Studio scan, security first; requirements coverage; implementation review | user-story `RQT-*`; architecture `TST-*` | `MWT-01`…`MWT-09`, `MWV-01`, `MWV-07` |
 
-The **implementation review** (`templates/increment-review.md`, `references/reviews-and-validation.md`) closes every increment: requirements coverage (feature → story → AC → element → test), standards (each companion checklist), MCP hygiene (all merges reviewed, nothing unpublished left behind), open MAN steps, and lessons. Then G4.
+The **implementation review** (`templates/increment-review.md`, `references/reviews-and-validation.md`) closes every increment: requirements coverage (feature → story → AC → element → test), a two-axis code review — Standards and Spec kept apart (`MWV-08`) —, standards (each companion checklist), MCP hygiene (all merges reviewed, nothing unpublished left behind), open MAN steps, and lessons. Then G4.
 
 ### M9 — Release and handover (G5)
 Regression across increments; AI Mentor Studio scan with no new findings versus the baseline (MAN); performance and security checks; translations imported (MAN); deployment plan via LifeTime with order, dependencies, site properties and roles per environment, test apps excluded, no more TrueChange warnings than the last release, hotfixes only through Development (MAN, REV); `templates/release-acceptance.md` with the AC matrix and the manual-step list. Say "done" only when G5 holds (`MWV-02`…`MWV-06`).

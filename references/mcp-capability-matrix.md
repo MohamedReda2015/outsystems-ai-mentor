@@ -1,6 +1,6 @@
 # O11 MCP capability matrix: what the agent can do, and what needs a human
 
-Source: the official OutSystems 11 MCP product update and repository (OutSystems/outsystems11-mcp, `servicestudio-mcp-oml` skill: "Capability status", "Known gaps", `reference/contracts.md`, `reference/mcp-design-choices.md`), community Ideas and forum threads (marked *community*), plus behaviour verified by test on real O11 projects in late 2026 (marked *verified*). Service Studio 11.55.91+, MCP **contract 1**. The server reports its contract when the agent connects: **re-check this table when the contract number goes up** (`MWS-01`).
+Source: the official OutSystems 11 MCP product update and repository (OutSystems/outsystems11-mcp, `servicestudio-mcp-oml` skill: "Capability status", "Known gaps", `reference/contracts.md`, `reference/mcp-design-choices.md`), community Ideas and forum threads (marked *community*), plus behaviour verified by test on real O11 projects in late 2026 (marked *verified*). Service Studio 11.55.91+. The official skill is now written for **MCP contract 2** (as of its 2026-11-20 update) and keeps notes for contract 1 builds; the server names its contract when the agent connects (a server that names none speaks contract 1). **Re-check this table whenever the contract number changes** (`MWS-01`).
 
 ## Status by app type (official product update)
 | App type | Read | Write |
@@ -9,13 +9,14 @@ Source: the official OutSystems 11 MCP product update and repository (OutSystems
 | Traditional Web | **Beta** (use the `*Traditional` read variants) | Beta |
 So on Traditional Web even an MCP-R step is Beta: confirm read results in Service Studio before designing on them.
 
-## Tool sets by build (official, contract 1) (`MWS-05`)
+## Tool sets by contract and build (official) (`MWS-05`)
 | Server advertises | Service Studio builds | Consequence |
 |---|---|---|
 | `listApps` only | early 11.55.9x builds | no `searchApps`/`openModule`: the user opens modules; `tabId` may be missing |
 | `listOpenModules` + `searchApps` | from 11.55.98 | the agent can list the environment's modules but not open them |
 | + `openModule` / `closeModule` | from 11.55.99 | the agent can open and close modules itself |
-Check the live tool list at M0; where a live tool description differs from the official skill, trust the description.
+| contract 2 (next Service Studio release) | — | the tool set the official skill now describes (`listOpenModules`, `searchApps`, `openModule`, `closeModule`); install the matching official skill when the server reports it |
+Check the live tool list and the reported contract at M0; where a live tool description differs from the official skill, trust the description. When both the O11 and ODC MCP servers are connected, ask which platform before any call (`MWS-07`).
 
 ## Marks
 

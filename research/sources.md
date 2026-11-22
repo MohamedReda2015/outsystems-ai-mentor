@@ -30,6 +30,11 @@ Where the rules come from. *Official* = OutSystems documentation or repositories
 - Community standards (Synobsys): BDDFramework for component testing; code review checklist; no promotion with more TrueChange warnings. https://synobsys.github.io/adr/ADR-004-bdd-framework-for-component-testing.html
 - Forum: best way to test Reactive apps in O11 (BDD, E2E, unit, API). https://www.outsystems.com/forums/discussion/101411/best-way-to-test-your-reactive-apps-bdd-e2e-unit-api-testing-in-o11
 
+### Added in v1.2.0
+- OutSystems/outsystems11-mcp commit 8cdd94f (2026-11-20): the official skill now says it is written for MCP contract 2.
+- OutSystems/outsystems-mcp commit a9d7161 (2026-11-11): ODC `outsystems` skill (ask the platform when both servers are connected) and `outsystems-spec-driven-build` (spec check before Mentor generation: screens ↔ roles, entities, relationships, integrations).
+- maiurnarendra/outsystems-ai-skills v0.14.1 (MIT): code-review (Standards vs Spec axes), debugging, data-model interview, lifetime-deploy — paraphrased; house rules win where they differ.
+
 ## Companion skills (house standards)
 outsystems-brd-analysis v1.2.0, outsystems-user-story-implementation v1.1.1, outsystems-architecture v2.0.0, outsystems-backend-conventions v1.2.0, outsystems-frontend-conventions v1.1.0, outsystems-live-style-guide v2.0.0, outsystems-bpt v1.2.0, outsystems-cmf v1.1.1.
 

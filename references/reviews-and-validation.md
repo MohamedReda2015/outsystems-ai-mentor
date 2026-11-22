@@ -27,7 +27,12 @@ Run it as a structured self-review, then show it to the user. Sections of `templ
 
 **B. Acceptance criteria results** — Pass (evidence), Fail (defect ID), Blocked (reason, owner), Not tested (reason, owner). Evidence = what was observed in the published app or data, not "implemented".
 
-**C. Standards** — run each companion's review checklist on what this increment touched:
+**C. Code review on two axes** (`MWV-08`, user-story `RQT-12`) — keep them independent:
+- *Standards*: the changed elements against the companion checklists only, without reading the stories.
+- *Spec*: each AC of the increment as Met (cite element › node) / Partly met / Not found / Needs testing; report out-of-scope changes and risks the spec implies.
+- Mark findings unrelated to this increment **(pre-existing?)** and propose a separate debt item. Verdict: Blocked (Blocker finding, TrueChange error or AC Not found) / Needs changes (Major finding or Partly met) / Ready.
+
+**C2. Standards** — run each companion's review checklist on what this increment touched:
 | Area | Checklist |
 |---|---|
 | Layers, dependencies, security | outsystems-architecture `references/review-checklist.md` |

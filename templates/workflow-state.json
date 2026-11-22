@@ -10,6 +10,9 @@
     "G3": { "status": "open" },
     "G5": { "status": "open" }
   },
+  "roles": [ { "id": "<Role>" } ],
+  "entities": ["<Entity>"],
+  "screens": [ { "name": "<Screen>", "roles": ["<Role>"] } ],
   "questions": [
     { "id": "Q-01", "text": "<question>", "severity": "Blocker", "status": "open", "recommendation": "<option>" }
   ],

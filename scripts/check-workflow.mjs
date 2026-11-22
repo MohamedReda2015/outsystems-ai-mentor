@@ -119,6 +119,20 @@ function checkG2() {
   }
   if (!incs.length) err("MWP-08", "G2: no increments planned");
   if (passed("G2") && !gates.G2.specVersion) warn("MWP-07", "G2: approved spec version not recorded");
+  // spec check (MWP-09)
+  const roles = arr(s.roles), screens = arr(s.screens);
+  if (!roles.length || !screens.length) warn("MWP-09", "G2: roles and screens not listed in the state; the screen-role spec check could not run");
+  else {
+    const roleIds = new Set(roles.map((r) => r.id || r.name));
+    const used = new Set();
+    for (const sc of screens) {
+      const rs = arr(sc.roles);
+      if (!rs.length) err("MWP-09", `G2: screen ${sc.name || sc.id} names no role`);
+      for (const r of rs) { if (!roleIds.has(r)) err("MWP-09", `G2: screen ${sc.name || sc.id} uses role ${r}, which the spec does not define`); used.add(r); }
+    }
+    for (const r of roleIds) if (!used.has(r) && !arr(s.useCases).some((u) => arr(u.roles).includes(r))) warn("MWP-09", `G2: role ${r} is used by no screen or use case`);
+  }
+  if (!arr(s.entities).length) warn("MWP-09", "G2: no entities listed in the state (spec section 3)");
 }
 function checkG3() {
   const pend = manual.filter((m) => m.phase === "M3" && !["done", "verified"].includes(m.status));

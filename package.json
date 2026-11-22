@@ -1,6 +1,6 @@
 {
   "name": "outsystems-ai-mentor",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Agent-independent OutSystems 11 delivery lifecycle modelled on OutSystems Mentor: requirements, app specification, architecture, incremental build through the Service Studio MCP, validation and release, with an MCP-vs-manual capability matrix and a workflow-state checker.",
   "private": true,
   "type": "module",

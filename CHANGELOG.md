@@ -1,5 +1,14 @@
 # Changelog
 
+## 1.2.0 — 2026-11-22
+After reviewing the official OutSystems O11 and ODC MCP skills and a third-party skills collection (maiurnarendra/outsystems-ai-skills, MIT; paraphrased).
+- `MWD-01` corrected: static entities are **not** auto-number (ids must match across environments).
+- New rules: `MWS-07` ask which platform when both MCP servers are connected; `MWP-09` spec check (screens ↔ roles, entities, relationships, integrations) before G2; `MWV-08` two-axis Standards/Spec code review in the increment review.
+- Capability matrix: the official skill now targets MCP contract 2; tool sets by contract and build.
+- Skill coordination: optional helper skills (official and third-party) ranked below the house skills; ODC skills never used on O11.
+- Defects: diagnose before fixing (architecture `OPS-09`).
+- `check-workflow.mjs`: G2 spec check from `roles`, `screens`, `entities` in the state; examples, template and tests updated. Companion rule ranges updated.
+
 ## 1.1.0 — 2026-11-22
 Research-driven update (official product updates, official O11 MCP design notes and contracts, forum threads and Ideas, testing guidance); details in `research/assessment-2026-11.md`.
 - New rules: `MWS-05` live tool set, `MWS-06` environment confirmation, `MWA-07` MCP feasibility for large modules, `MWT-09` test pyramid in a test module kept out of Production, `MWV-07` recurrent AI Mentor Studio scans in priority order, `MWG-08` edit-session discipline, `MWG-09` agent change log, `MWG-10` increment plan sign-off, `MWG-11` flow layout before merge.

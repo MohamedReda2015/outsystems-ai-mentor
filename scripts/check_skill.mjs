@@ -72,14 +72,14 @@ const known = new Set([...defined, ...lessons]);
 // Rule ID ranges of the companion skills (architecture v2.0.0, backend v1.2.0, frontend v1.1.0,
 // style guide v2.0.0, bpt v1.2.0, cmf v1.1.1, brd-analysis v1.2.0, user-story v1.1.1). Update when they add IDs.
 const COMPANION = {
-  ARC: 14, HSE: 6, DAT: 12, INT: 6, UI: 8, SEC: 14, AUD: 3, MNT: 8, OPS: 7, TST: 4,
-  BNM: 8, BLG: 10, BTX: 7, BDA: 13, BIN: 11, BER: 8, BAS: 9, BPF: 9, BSC: 11, BCF: 4,
-  NAM: 7, STR: 3, BLK: 9, NAV: 5, LCY: 7, FET: 6, STA: 5, CLG: 6, VAL: 8, ERR: 6, JSC: 19, FSC: 7, FPF: 5, MOB: 7, LOC: 3, VER: 2,
+  ARC: 14, HSE: 6, DAT: 12, INT: 6, UI: 8, SEC: 14, AUD: 3, MNT: 8, OPS: 9, TST: 4,
+  BNM: 8, BLG: 12, BTX: 7, BDA: 15, BIN: 12, BER: 8, BAS: 10, BPF: 9, BSC: 11, BCF: 4,
+  NAM: 7, STR: 3, BLK: 9, NAV: 5, LCY: 7, FET: 6, STA: 5, CLG: 8, VAL: 8, ERR: 6, JSC: 19, FSC: 7, FPF: 5, MOB: 7, LOC: 3, VER: 2,
   TOK: 11, THM: 11, LAY: 7, RSP: 8, CMP: 5, FRM: 5, LST: 5, FDB: 5, TXT: 5, PRF: 4, GOV: 5,
   PAR: 9, PDS: 10, PHA: 10, PAA: 6, PLT: 5, PEX: 5, PVR: 7, POP: 4, PSC: 3, PNM: 5,
   CAR: 10, CDF: 11, CST: 9, CAC: 11, CSC: 10, CSL: 10, CUI: 9, COP: 10,
   BRI: 9, BRX: 17, BRQ: 16, BRC: 8, BRS: 10, BRM: 12, BRT: 3, BRR: 8,
-  RQA: 18, RQV: 8, RQC: 8, RQP: 11, RQI: 12, RQT: 11, RQD: 7, RLL: 30,
+  RQA: 18, RQV: 8, RQC: 8, RQP: 11, RQI: 13, RQT: 12, RQD: 7, RLL: 30,
 };
 for (const [p, n] of Object.entries(COMPANION)) for (let i = 1; i <= n; i++) known.add(`${p}-${String(i).padStart(2, "0")}`);
 for (const i of [1, 4, 6, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18]) known.add(`PERF-${String(i).padStart(2, "0")}`);
