@@ -1,0 +1,57 @@
+name: Rule proposal
+description: Propose a new lifecycle rule or lesson learned
+labels: ["rule-proposal"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: What goes wrong in OutSystems delivery without this rule? (No client names, real requirements text or confidential details.)
+    validations:
+      required: true
+  - type: textarea
+    id: rule
+    attributes:
+      label: Proposed rule
+      description: The rule, written as an instruction, plus one sentence on why it matters.
+    validations:
+      required: true
+  - type: dropdown
+    id: group
+    attributes:
+      label: Group
+      options:
+        - MWS - Setup and context (M0)
+        - MWR - Requirements (M1, G1)
+        - MWP - App Specification (M2, G2)
+        - MWA - Architecture (M3, G3)
+        - MWD - Data model (M4)
+        - MWL - Business logic (M5)
+        - MWI - Integrations (M6)
+        - MWU - Screens and UI (M7)
+        - MWT - Test and validate (M8, G4)
+        - MWV - Review, release and handover (M9, G5)
+        - MWG - Governance, MCP and coordination
+        - MLL - Lesson learned
+    validations:
+      required: true
+  - type: dropdown
+    id: severity
+    attributes:
+      label: Suggested severity
+      options: [Blocker, Major, Minor]
+    validations:
+      required: true
+  - type: input
+    id: source
+    attributes:
+      label: Source
+      description: Official OutSystems material, community practice (link), or "generalized project lesson".
+    validations:
+      required: true
+  - type: dropdown
+    id: platform
+    attributes:
+      label: Applies to
+      multiple: true
+      options: [Any, O11, ODC, AI agents / MCP]

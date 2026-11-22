@@ -1,0 +1,35 @@
+name: MCP capability change
+description: A Service Studio release or MCP contract changed what the agent can or can't do
+labels: ["mcp-capability"]
+body:
+  - type: markdown
+    attributes:
+      value: "Updates to `references/mcp-capability-matrix.md`. **Never paste module code, names or data from a client project.**"
+  - type: input
+    id: version
+    attributes:
+      label: Service Studio version and MCP contract
+      description: e.g. 11.55.99, contract 1 (the server names its contract when the agent connects)
+    validations:
+      required: true
+  - type: input
+    id: task
+    attributes:
+      label: Task / matrix row
+      description: e.g. "Add a dependency", "Translations", "Block stylesheet"
+    validations:
+      required: true
+  - type: dropdown
+    id: mark
+    attributes:
+      label: Mark it should have now
+      options: [MCP-R, MCP-W, "MCP-W⚠ (known gap)", MAN, REV]
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Official release note or skill change, or how you verified it (synthetic module, steps, result after publish).
+    validations:
+      required: true

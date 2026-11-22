@@ -1,0 +1,69 @@
+{
+  "app": "Leave Requests (example)",
+  "platform": { "name": "O11", "serviceStudio": "11.55.91", "mcpContract": 1, "toolSet": "listOpenModules+searchApps+openModule", "environment": "Development", "environmentConfirmedBy": "Tech Lead" },
+  "kind": "green-field",
+  "phase": "M8",
+  "gates": {
+    "G1": { "status": "passed", "date": "2026-11-02", "by": "Product Owner" },
+    "G2": { "status": "passed", "date": "2026-11-04", "by": "Product Owner", "specVersion": "1.1" },
+    "G3": { "status": "passed", "date": "2026-11-05", "by": "Tech Lead" },
+    "G5": { "status": "open" }
+  },
+  "questions": [
+    { "id": "Q-01", "text": "Can a manager approve their own request?", "severity": "Blocker", "status": "answered", "answer": "No" },
+    { "id": "Q-02", "text": "Is the leave-type list maintained by HR?", "severity": "Major", "status": "answered", "answer": "Yes, lookup entity" },
+    { "id": "Q-03", "text": "Default page size", "severity": "Minor", "status": "assumed", "assumption": "20 rows" }
+  ],
+  "features": [
+    { "id": "F-01", "name": "Submit leave request", "priority": "Must", "stories": ["US-01"], "increment": 1 },
+    { "id": "F-02", "name": "Approve or reject", "priority": "Must", "stories": ["US-02", "US-03"], "increment": 2 }
+  ],
+  "acs": [
+    { "id": "AC-01", "feature": "F-01", "story": "US-01", "priority": "Must" },
+    { "id": "AC-02", "feature": "F-01", "story": "US-01", "priority": "Must" },
+    { "id": "AC-03", "feature": "F-02", "story": "US-02", "priority": "Must" },
+    { "id": "AC-04", "feature": "F-02", "story": "US-03", "priority": "Should" }
+  ],
+  "increments": [
+    {
+      "id": 1, "goal": "Employee submits a request and sees it in My Requests", "status": "accepted", "planApproved": { "date": "2026-11-06", "by": "Tech Lead" }, "features": ["F-01"],
+      "tasks": [
+        { "id": "T01", "phase": "M4", "module": "Leave_CS", "element": "LeaveRequest", "mark": "MCP-W", "acs": ["AC-01"], "status": "done" },
+        { "id": "T02", "phase": "M4", "module": "Leave_BL", "element": "dependency on Leave_CS", "mark": "MAN", "manualStep": "MS-02", "status": "done" },
+        { "id": "T03", "phase": "M5", "module": "Leave_BL", "element": "SubmitLeaveRequest", "mark": "MCP-W", "acs": ["AC-01", "AC-02"], "status": "done" },
+        { "id": "T04", "phase": "M7", "module": "Leave_CW", "element": "LeaveRequestForm", "mark": "MCP-W", "acs": ["AC-01"], "status": "done" },
+        { "id": "T05", "phase": "M8", "module": "all", "element": "publish CS-BL-CW-FE", "mark": "REV", "status": "done" }
+      ],
+      "results": [
+        { "ac": "AC-01", "result": "Pass", "evidence": "Published v12; test.employee.a submitted; status Submitted and history row seen" },
+        { "ac": "AC-02", "result": "Pass", "evidence": "End date before start date shows the rule message; nothing written" }
+      ],
+      "review": { "done": true, "openBlockers": 0, "trueChangeErrors": 0, "mentorStudio": "no-new" },
+      "gate": { "status": "passed", "date": "2026-11-10", "by": "Product Owner" }
+    },
+    {
+      "id": 2, "goal": "Manager approves or rejects from a queue", "status": "testing", "planApproved": { "date": "2026-11-11", "by": "Tech Lead" }, "features": ["F-02"],
+      "tasks": [
+        { "id": "T10", "phase": "M5", "module": "Leave_BL", "element": "ApproveLeaveRequest", "mark": "MCP-W", "acs": ["AC-03"], "status": "done" },
+        { "id": "T11", "phase": "M7", "module": "Leave_Front_End", "element": "translations", "mark": "MAN", "manualStep": "MS-03", "status": "done" }
+      ],
+      "results": [
+        { "ac": "AC-03", "result": "Pass", "evidence": "test.manager.a approved; status Approved; notification logged" },
+        { "ac": "AC-04", "result": "Blocked", "owner": "HR", "reason": "rejection reason list not supplied yet" }
+      ],
+      "review": { "done": true, "openBlockers": 0, "trueChangeErrors": 0, "mentorStudio": "no-new" },
+      "gate": { "status": "open" }
+    }
+  ],
+  "manualSteps": [
+    { "id": "MS-01", "phase": "M3", "step": "Create app and four modules", "owner": "developer", "status": "verified", "verify": "searchApps" },
+    { "id": "MS-02", "phase": "M3", "step": "Leave_BL depends on Leave_CS (Apply)", "owner": "developer", "status": "verified", "verify": "eSpace.References probe" },
+    { "id": "MS-03", "phase": "M7", "step": "Import Arabic translations", "owner": "developer", "status": "done", "verify": "language pass" }
+  ],
+  "agentLog": [
+    { "date": "2026-11-07", "module": "Leave_CS", "change": "LeaveRequest entity and CRUD", "merged": true, "published": "v3" },
+    { "date": "2026-11-12", "module": "Leave_BL", "change": "ApproveLeaveRequest", "merged": true, "published": "v9" }
+  ],
+  "release": { "regression": "not-run", "mentorStudio": "not-run" },
+  "decisions": [ { "date": "2026-11-03", "decision": "Leave type is a lookup entity", "by": "Product Owner", "rule": "MWD-03" } ]
+}

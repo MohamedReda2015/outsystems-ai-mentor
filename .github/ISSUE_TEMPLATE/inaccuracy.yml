@@ -1,0 +1,32 @@
+name: Bug / inaccuracy
+description: A rule is wrong or outdated, or a script misbehaves
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: "**Never paste real requirements text, client names or personal data.** Use a short synthetic example instead."
+  - type: input
+    id: location
+    attributes:
+      label: Where
+      description: File and rule ID (e.g. references/mcp-capability-matrix.md, MWG-06) or script name.
+    validations:
+      required: true
+  - type: textarea
+    id: issue
+    attributes:
+      label: What is wrong
+      description: What it says now, what it should say, and the platform (O11 or ODC) if relevant.
+    validations:
+      required: true
+  - type: input
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Link to official documentation, a standard, or a reproducible example.
+  - type: textarea
+    id: repro
+    attributes:
+      label: Script reproduction (if a script bug)
+      description: A synthetic input (workflow-state JSON), the command and the output.
+      render: shell

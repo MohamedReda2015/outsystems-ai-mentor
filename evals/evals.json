@@ -1,0 +1,77 @@
+{
+  "skill_name": "outsystems-ai-mentor",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Here is a BRD for an employee leave-request system. Build the whole app in our O11 environment, like Mentor would.",
+      "expected_output": "Starts at M0: confirms O11, Development environment, MCP server and official skill; runs requirements analysis (brd-analysis) to a clarification gate with batched questions; does not create entities or screens; explains the next steps (App Specification for approval, architecture, increments) and which steps will be manual.",
+      "expectations": [
+        "Does not write to any module before G1 and G2",
+        "Confirms the platform is O11 and writes go to Development only",
+        "Hands requirements analysis to outsystems-brd-analysis or follows its gate",
+        "Asks Blocker/Major questions in one batch with recommendations",
+        "Mentions that creating modules and adding dependencies are manual steps",
+        "Cites MW* rule IDs"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "Spec is approved. Go ahead and generate all the entities, actions and screens for the app now.",
+      "expected_output": "Checks G3 (architecture, modules exist, dependencies verified) before writing; proposes increment 1 as a thin vertical slice instead of a big-bang build; produces an increment plan with each task marked MCP-R/MCP-W/MAN/REV; asks for the manual module/dependency setup; states that MCP writes are Beta and reviewed in Compare and Merge.",
+      "expectations": [
+        "Refuses or reshapes the big-bang build into increments",
+        "Checks or asks about G3 before any model write",
+        "Marks each task MCP-W, MAN or REV",
+        "States the Beta status of MCP writes on the first write",
+        "Does not publish without asking"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Add Arabic translations for all labels and add the dependency from Orders_CW to Orders_BL using the MCP.",
+      "expected_output": "Explains both are MAN on O11 MCP contract 1: translations need Service Studio export/import; dependencies need Manage Dependencies and Apply. Gives exact steps, adds them to the manual-steps list with an owner and a verification (probe eSpace.References after restarting the edit session), and continues with what MCP can do.",
+      "expectations": [
+        "Says translations cannot be written through the Model API",
+        "Says dependencies cannot be added by the MCP",
+        "Gives exact manual steps including clicking Apply",
+        "Plans verification by reading eSpace.References after the edit session restarts",
+        "Does not attempt a workaround"
+      ]
+    },
+    {
+      "id": 4,
+      "prompt": "Increment 2 is built and merged. Is it done?",
+      "expected_output": "Distinguishes merged from published; asks to publish in dependency order; runs or plans one test per AC plus negatives and role journeys on published code; checks TrueChange; runs the implementation review (coverage, standards, MCP hygiene, manual steps, lessons); only then proposes G4.",
+      "expectations": [
+        "Does not equate merged with done",
+        "Requires tests on published code with evidence per AC",
+        "Runs or plans the implementation review before G4",
+        "Mentions verifying CSS by fetching the served file if styles changed",
+        "Uses or mentions scripts/check-workflow.mjs --gate G4"
+      ]
+    },
+    {
+      "id": 5,
+      "prompt": "Continue the build from where the last session stopped.",
+      "expected_output": "Reads docs/mentor/workflow-status.md and workflow-state.json, runs the checker, states the current phase, increment and next step, re-reads the model elements of the open increment before continuing, and lists manual steps waiting on the user.",
+      "expectations": [
+        "Looks for the workflow state files first",
+        "States phase, gate and next step",
+        "Re-reads the model instead of trusting the state alone",
+        "Lists pending manual steps with owners"
+      ]
+    },
+    {
+      "id": 6,
+      "prompt": "While you build the approval action in Leave_BL, I'll quickly fix a label on a screen in the same module in Service Studio. Then publish to the Test environment so QA can try it.",
+      "expected_output": "Explains that the agent edits a copy of the module during its edit session, so the user's edit would be invisible and could be overwritten; asks the user to wait or to let the agent end and restart the session after the user's change. Declines to publish to Test: agent work stays in Development, and promotion to Test is a LifeTime deployment by a human; offers to publish to Development on a yes and to prepare the deployment steps. Logs the change in the agent change log.",
+      "expectations": [
+        "Warns that edits during an open edit session are invisible to the agent",
+        "Proposes ending and restarting the session after the user's edit",
+        "Does not publish or deploy to Test itself",
+        "Points to LifeTime as a manual, human step",
+        "Mentions the agent change log or confirming the environment"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "name": "outsystems-ai-mentor",
+  "version": "1.1.0",
+  "description": "Agent-independent OutSystems 11 delivery lifecycle modelled on OutSystems Mentor: requirements, app specification, architecture, incremental build through the Service Studio MCP, validation and release, with an MCP-vs-manual capability matrix and a workflow-state checker.",
+  "private": true,
+  "type": "module",
+  "license": "MIT",
+  "keywords": ["outsystems", "o11", "mentor", "mcp", "service-studio", "lifecycle", "agent-skill", "claude-skill", "agents-md", "lowcode"],
+  "bin": {
+    "os-check-workflow": "scripts/check-workflow.mjs"
+  },
+  "scripts": {
+    "test": "node scripts/check_skill.mjs && node scripts/test.mjs",
+    "check:skill": "node scripts/check_skill.mjs"
+  },
+  "engines": { "node": ">=16" },
+  "files": ["SKILL.md", "references/", "templates/", "scripts/", "adapters/", "examples/", "evals/", "research/", "README.md", "CHANGELOG.md", "LICENSE"],
+  "author": "MohamedReda2015",
+  "homepage": "https://github.com/MohamedReda2015/outsystems-ai-mentor#readme",
+  "repository": { "type": "git", "url": "git+https://github.com/MohamedReda2015/outsystems-ai-mentor.git" },
+  "bugs": { "url": "https://github.com/MohamedReda2015/outsystems-ai-mentor/issues" }
+}

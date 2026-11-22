@@ -1,0 +1,45 @@
+{
+  "app": "<App name>",
+  "platform": { "name": "O11", "serviceStudio": "11.55.99", "mcpContract": 1, "toolSet": "listOpenModules+searchApps+openModule", "environment": "Development", "environmentConfirmedBy": "<user>" },
+  "kind": "green-field",
+  "phase": "M0",
+  "companions": ["outsystems-brd-analysis", "outsystems-user-story-implementation", "outsystems-architecture", "outsystems-backend-conventions", "outsystems-frontend-conventions", "outsystems-live-style-guide", "servicestudio-mcp-oml"],
+  "gates": {
+    "G1": { "status": "open" },
+    "G2": { "status": "open", "specVersion": null },
+    "G3": { "status": "open" },
+    "G5": { "status": "open" }
+  },
+  "questions": [
+    { "id": "Q-01", "text": "<question>", "severity": "Blocker", "status": "open", "recommendation": "<option>" }
+  ],
+  "features": [
+    { "id": "F-01", "name": "<feature>", "priority": "Must", "stories": ["US-01"], "increment": 1 }
+  ],
+  "acs": [
+    { "id": "AC-01", "feature": "F-01", "story": "US-01", "priority": "Must", "text": "Given … When … Then …" }
+  ],
+  "increments": [
+    {
+      "id": 1,
+      "goal": "<usable outcome>",
+      "status": "planned",
+      "planApproved": { "date": null, "by": null },
+      "features": ["F-01"],
+      "tasks": [
+        { "id": "T01", "phase": "M4", "module": "<D>_CS", "element": "<Entity>", "mark": "MCP-W", "acs": ["AC-01"], "status": "todo" }
+      ],
+      "results": [],
+      "review": { "done": false, "openBlockers": 0, "trueChangeErrors": 0, "mentorStudio": "not-run" },
+      "gate": { "status": "open" }
+    }
+  ],
+  "manualSteps": [
+    { "id": "MS-01", "phase": "M3", "step": "Create modules", "owner": "user", "status": "todo", "verify": "searchApps lists them" }
+  ],
+  "agentLog": [
+    { "date": "<yyyy-mm-dd>", "module": "<D>_CS", "change": "<what>", "merged": true, "published": "<version or no>" }
+  ],
+  "release": { "regression": "not-run", "mentorStudio": "not-run" },
+  "decisions": []
+}
