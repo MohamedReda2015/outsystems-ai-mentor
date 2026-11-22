@@ -156,7 +156,7 @@ function checkG4(inc) {
   if (!rv.done) err("MWV-01", `G4 increment ${inc.id}: implementation review not done`);
   if (rv.openBlockers > 0) err("MWV-01", `G4 increment ${inc.id}: ${rv.openBlockers} open Blocker finding(s) in the review`);
   if (rv.trueChangeErrors > 0) err("MWT-01", `G4 increment ${inc.id}: ${rv.trueChangeErrors} TrueChange error(s)`);
-  if (!["no-new", "accepted", "fixed"].includes(rv.mentorStudio)) warn("MWV-07", `G4 increment ${inc.id}: AI Mentor Studio scan is '${rv.mentorStudio || "not-run"}' (recurrent scans catch debt early)`);
+  if (!["no-new", "accepted", "fixed"].includes(rv.mentorStudio)) warn("MWV-07", `G4 increment ${inc.id}: Code Quality (formerly AI Mentor Studio) scan is '${rv.mentorStudio || "not-run"}' (recurrent scans catch debt early)`);
   const needed = new Set(arr(inc.tasks).map((t) => t.manualStep).filter(Boolean));
   for (const m of manual) if (needed.has(m.id) && !["done", "verified"].includes(m.status)) err("MWG-06", `G4 increment ${inc.id}: manual step ${m.id} is ${m.status}`);
   if (inc.gate && inc.gate.status === "passed" && !(inc.gate.date && inc.gate.by)) err("MWG-04", `G4 increment ${inc.id}: passed without date and approver`);
@@ -165,7 +165,7 @@ function checkG5() {
   for (const inc of incs) if (!(inc.gate && inc.gate.status === "passed")) err("MWV-06", `G5: increment ${inc.id} has not passed G4`);
   const rel = s.release || {};
   if (rel.regression !== "passed") err("MWV-02", `G5: regression is '${rel.regression || "not-run"}'`);
-  if (!["no-new", "accepted"].includes(rel.mentorStudio)) err("MWV-03", `G5: AI Mentor Studio result is '${rel.mentorStudio || "not-run"}' (no-new or accepted expected)`);
+  if (!["no-new", "accepted"].includes(rel.mentorStudio)) err("MWV-03", `G5: Code Quality result is '${rel.mentorStudio || "not-run"}' (no-new or accepted expected)`);
   if (!rel.deploymentPlan) warn("MWV-04", "G5: no deploymentPlan reference in release");
   const open = manual.filter((m) => !["done", "verified"].includes(m.status) && m.phase !== "M9");
   for (const m of open) warn("MWV-05", `G5: manual step ${m.id} still ${m.status}; list it in the handover`);

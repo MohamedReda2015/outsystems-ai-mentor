@@ -2,6 +2,8 @@
 
 Source: the official OutSystems 11 MCP product update and repository (OutSystems/outsystems11-mcp, `servicestudio-mcp-oml` skill: "Capability status", "Known gaps", `reference/contracts.md`, `reference/mcp-design-choices.md`), community Ideas and forum threads (marked *community*), plus behaviour verified by test on real O11 projects in late 2026 (marked *verified*). Service Studio 11.55.91+. The official skill is now written for **MCP contract 2** (as of its 2026-11-20 update) and keeps notes for contract 1 builds; the server names its contract when the agent connects (a server that names none speaks contract 1). **Re-check this table whenever the contract number changes** (`MWS-01`).
 
+> The house-wide detail (governance, edit sessions, timeouts, manual-only steps, Model API pitfalls, CSS verification) lives in the shared MCP reference of **outsystems-architecture** (its `service-studio-mcp` reference, rule `OPS-10`). This matrix keeps the lifecycle view: which mark each task gets. When the two differ, re-check both against the server's contract and update them together.
+
 ## Status by app type (official product update)
 | App type | Read | Write |
 |---|---|---|
@@ -25,7 +27,7 @@ Check the live tool list and the reported contract at M0; where a live tool desc
 | **MCP-R** | Read tool, Generally Available. Leaves the module unchanged. | agent | none |
 | **MCP-W** | Model write through `applyModelApiCode` (Beta). Staged on a copy; accepted in Compare and Merge. | agent, human reviews merge | per the developer's *Write permissions* setting (team standard: manual review) |
 | **MCP-W⚠** (ASCII: `MCP-W!`) | Beta write with a known gap. Do it, then **verify the published result**; keep the manual fallback ready. | agent + human | as MCP-W |
-| **MAN** | No MCP tool. Human in Service Studio, Service Center, LifeTime, Users app, AI Mentor Studio or a browser. | human (agent prepares exact steps) | n/a |
+| **MAN** | No MCP tool. Human in Service Studio, Service Center, LifeTime, Users app, Code Quality (formerly AI Mentor Studio) or a browser. | human (agent prepares exact steps) | n/a |
 | **REV** | The agent can do it, but a human must approve first. | agent after a yes | explicit yes each time (`MWG-04`) |
 
 ## The tool flow (MCP-W)
@@ -59,7 +61,7 @@ Check the live tool list and the reported contract at M0; where a live tool desc
 | Open / close a module in Service Studio | MCP-R / host tool | `openModule`, `closeModule` where available; otherwise MAN |
 | Module overview, documentation, dependency map, risk scan | MCP-R | AI interpretation: confirm facts by reading the element (`MWS-02`). The map covers the **open module only**: open consumers yourself |
 | Create a new application or module, set its type and icon | **MAN** | Service Studio → New Application / New Module |
-| Classify modules in Discovery / AI Mentor Studio | **MAN** | |
+| Classify modules in Discovery / Code Quality | **MAN** | |
 | **Add a dependency** (other module, Forge, System element) | **MAN** | Manage Dependencies → tick → **Apply**. The tool fails with `ResolveModuleSignature must be set first`. After the user adds it, end and restart the edit session, then probe `eSpace.References` (*verified*: users said "done" before Apply) |
 | Refresh existing references to the latest producer version | MCP-W (REV) | `omlRefreshReferences`; then publish the consumer |
 | Install a Forge component | **MAN** | |
@@ -120,10 +122,12 @@ Check the live tool list and the reported contract at M0; where a live tool desc
 | Publish to Development | REV | `omlPublish` on the user's yes; if the tool wrapper rejects it for a missing token, the documented fallback is a direct call to the local endpoint with the session token |
 | Run the app, test ACs, walk role journeys | MAN or browser automation | the MCP does not run the app |
 | BDDFramework tests | MCP-W build, run MAN/browser | in a dedicated test module/app, never deployed to Production (`MWT-09`); the Forge component is a dependency the user adds (MAN) |
-| AI Mentor Studio (code quality, security, performance, architecture, deprecated elements) scan | **MAN** | run per increment (`MWV-07`); an MCP-R "risk scan" is a useful pre-check, not a replacement |
+| Code Quality (code quality, security, performance, architecture, deprecated elements) scan | **MAN** | run per increment (`MWV-07`); an MCP-R "risk scan" is a useful pre-check, not a replacement |
 | Assign roles to test users | **MAN** | Users app |
 | Deploy to Test/Acceptance/Production | **MAN** | LifeTime only; never by the agent; restrict agent work to Development |
 | Rollback | **MAN** | LifeTime |
+| Convert a Traditional Web module to Reactive | **MAN** | Service Studio › Module › Convert to Reactive (GA, clones the module); the agent then does the cleanup with MCP-W (`MWA-08`) |
+| Measure screen performance | **MAN** / browser | Performance Analytics (Beta, manual activation; client, network, server breakdown, APDEX, linked to Code Quality) or browser timings (`MWT-10`) |
 
 ## Before relying on a capability
 1. Check the contract number and the official skill's "Known gaps" and "Common mistakes" for the user's Service Studio version.

@@ -6,7 +6,7 @@ Mentor validates continuously; this workflow does the same at three levels:
 |---|---|---|---|
 | **Write check** | after every `applyModelApiCode` | exception message, `getValidationMessages`, read-back | `MWG-07` |
 | **Increment review** | end of every increment, before G4 | `templates/increment-review.md` + companion checklists | `MWV-01` |
-| **Release review** | before G5 | regression, AI Mentor Studio, deployment plan, release acceptance | `MWV-02`…`MWV-06` |
+| **Release review** | before G5 | regression, Code Quality (formerly AI Mentor Studio), deployment plan, release acceptance | `MWV-02`…`MWV-06` |
 
 ## 1. Write check (each MCP write)
 1. `exceptionMessage` empty.
@@ -66,7 +66,7 @@ Report findings as `ID — evidence — fix`.
 
 ## 4. Code-quality validation
 - **TrueChange** (MCP-R): zero errors, no new warnings.
-- **AI Mentor Studio** (MAN): take a baseline in M0 for brown-field apps; scan **every increment** once code is in Development, not only before release — practitioners stress recurrent analysis so problems are caught while cheap (`MWV-07`); fix in the order Security → Performance → Architecture → Maintainability; include deprecated-element findings (O11 now flags modules that consume elements no longer recommended); at G5 new findings must be fixed or accepted with a reason (`MWV-03`). The "% high tech debt" figure has no official target: track its trend and the findings behind it, not an absolute number. Its patterns are listed in the architecture skill's code-quality reference.
+- **Code Quality** (MAN): take a baseline in M0 for brown-field apps; scan **every increment** once code is in Development, not only before release — practitioners stress recurrent analysis so problems are caught while cheap (`MWV-07`); fix in the order Security → Performance → Architecture → Maintainability; include deprecated-element findings (O11 now flags modules that consume elements no longer recommended); at G5 new findings must be fixed or accepted with a reason (`MWV-03`). The "% high tech debt" figure has no official target: track its trend and the findings behind it, not an absolute number. Its patterns are listed in the architecture skill's code-quality reference.
 - **MCP risk scan** (MCP-R): "flag security, performance and dead-code concerns in this module" — a cheap pre-check before the human scan; confirm each item by reading the element.
 
 ## 5. Evidence rules

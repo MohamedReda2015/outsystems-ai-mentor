@@ -23,7 +23,7 @@ Elements without an AC (justify or remove): <…>
 - [ ] No secrets typed; no real data in defaults or test data
 - [ ] Flows laid out before merge (`MWG-11`); agent change log complete (`MWG-09`)
 - [ ] No stale edit session after human edits or partial merges (`MWG-08`)
-- [ ] AI Mentor Studio scan done; new findings fixed Security → Performance → Architecture → Maintainability (`MWV-07`)
+- [ ] Code Quality (formerly AI Mentor Studio) scan done; new findings fixed Security → Performance → Architecture → Maintainability (`MWV-07`)
 - [ ] Automated tests in the test module only (`MWT-09`)
 
 ## E. Manual steps

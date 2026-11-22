@@ -14,7 +14,7 @@ Each phase lists: **inputs**, **steps** (with the mark MCP-R / MCP-W / MAN / REV
 5. Record the context: module names and types, theme and layout, locales, roles, shared modules and owners (`MWS-03`).
 6. Privacy: replace personal data in documents with placeholders; never repeat secrets (`MWS-04`).
 7. Create `docs/mentor/` from the templates, including the agent change log (`MWG-09`).
-8. Brown-field baseline: ask for the current AI Mentor Studio findings and TrueChange warning count, so later scans can be compared (`MWV-07`).
+8. Brown-field baseline: ask for the current Code Quality (formerly AI Mentor Studio) findings and TrueChange warning count, so later scans can be compared (`MWV-07`).
 **Outputs**: `workflow-status.md` (phase M0 done), context section of `workflow-state.json`, as-is notes.
 **Exit**: the agent can name the platform, the environment, the modules in scope and what already exists.
 
@@ -41,8 +41,9 @@ Each phase lists: **inputs**, **steps** (with the mark MCP-R / MCP-W / MAN / REV
 3. Reuse check (MCP-R): existing CS/BL/IS modules for the same concepts before creating new ones.
 4. Manual setup list (MAN) with owners: create apps and modules, module types, add dependencies and Apply, Forge components, theme base, site properties (`MWA-04`). Write it into `templates/manual-steps.md`.
 5. After the human finishes: restart the edit session, probe `eSpace.References` per module, report what is missing (`MWA-05`).
-6. MCP feasibility per module (`MWA-07`): try a cheap read on each existing module; for modules that time out, plan raised timeouts, a read-only snapshot for analysis, or a small companion module for new logic.
-7. Test module/app for automated tests (e.g. `<D>_Tests` with BDDFramework), excluded from Production deployments (`MWT-09`).
+6. **Traditional Web brown-field** (`MWA-08`): plan the move to Reactive as increments in producer-to-consumer order. Each increment runs Service Studio's Convert to Reactive (MAN: Module › Convert to Reactive clones the module), then a cleanup of the clone (screen preparations → aggregates/data actions, session variables → server state or non-sensitive client variables, Traditional widgets → OutSystems UI patterns), then an endpoint security review, because every server call the Reactive UI makes is a REST endpoint (architecture `MNT-09`).
+7. MCP feasibility per module (`MWA-07`): try a cheap read on each existing module; for modules that time out, plan raised timeouts, a read-only snapshot for analysis, or a small companion module for new logic.
+8. Test module/app for automated tests (e.g. `<D>_Tests` with BDDFramework), excluded from Production deployments (`MWT-09`).
 **Outputs**: `architecture-design.md`, manual-steps list, verified references.
 **Exit = G3**: design approved, modules open, references verified (`MWA-06`).
 
@@ -83,15 +84,15 @@ Edit-session discipline for the whole increment (`MWG-08`): agree that nobody ed
 **Owner**: outsystems-user-story-implementation (Phases 6–7) + this skill's review.
 1. (MCP-R) `getValidationMessages` on every touched module (`MWT-01`).
 2. (REV) Publish in dependency order (CS → BL → IS → CW → Front_End) on the user's yes; state merged/published (`MWT-02`).
-3. (MAN/browser) One test per AC plus negatives (`MWT-03`); each role's journey back to the entry point (`MWT-04`); data effects (`MWT-05`).
+3. (MAN/browser) One test per AC plus negatives (`MWT-03`); performance NFRs measured against their target (`MWT-10`); each role's journey back to the entry point (`MWT-04`); data effects (`MWT-05`).
 4. BDDFramework tests for BL rules where planned (`MWT-06`), in the test module, pyramid-shaped (`MWT-09`); defects → diagnose first (one falsifiable hypothesis at a time; architecture `OPS-09`) → fix → re-test (`MWT-08`).
-5. (MAN) AI Mentor Studio scan of the touched modules; fix Security → Performance → Architecture → Maintainability; record the trend (`MWV-07`).
+5. (MAN) Code Quality scan of the touched modules; fix Security → Performance → Architecture → Maintainability; record the trend (`MWV-07`).
 6. Implementation review (`templates/increment-review.md`) (`MWV-01`).
 **Exit = G4**: `node scripts/check-workflow.mjs … --gate G4` passes for the increment (`MWT-07`).
 
 ## M9 — Release and handover → G5
 1. Regression across increments (`MWV-02`).
-2. (MAN) AI Mentor Studio scan; compare with the baseline taken in M0 (`MWV-03`).
+2. (MAN) Code Quality scan; compare with the baseline taken in M0 (`MWV-03`).
 3. Performance and security spot checks per architecture `SEC-*` and performance rules.
 4. (MAN) Deployment plan for LifeTime: application order, site properties and secrets per environment, roles, translations, data scripts, timers to activate; test apps excluded; no more TrueChange warnings than the previous release; hotfixes only via Development and LifeTime, never edited in place (`MWV-04`).
 5. `templates/release-acceptance.md`: AC matrix across increments, open items, manual steps, test data, follow-ups (`MWV-05`).

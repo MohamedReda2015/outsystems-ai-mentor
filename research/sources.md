@@ -48,3 +48,7 @@ outsystems-brd-analysis v1.2.0, outsystems-user-story-implementation v1.1.1, out
 - Large modules timing out; sidecar killed at short timeouts (`MLL-09`).
 - Service Actions without Start/End nodes; new blocks not public (`MLL-10`, `MLL-11`).
 - Secret site-property defaults readable by the agent (`MLL-13`).
+
+### Added in v1.3.0
+- OutSystems product updates (2026): Traditional-to-Reactive conversion (GA), Performance Analytics for Reactive and Mobile (Beta, linked to Code Quality — the current name of AI Mentor Studio). https://www.outsystems.com/product-updates
+- House skills released 2026-11-22: architecture 2.2.0 (shared MCP reference OPS-10, MNT-09), user-story 1.3.0 (RQT-13) and the other domain releases.

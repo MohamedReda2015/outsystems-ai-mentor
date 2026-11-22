@@ -16,7 +16,7 @@ This skill is the **conductor**: it decides the order, the gates and who acts. T
 | M8 Test | user-story-implementation (Phases 6–7) | architecture (`TST-*`) | test results, increment review |
 | M9 Release | architecture (LifeTime SOPs) | user-story-implementation (acceptance report) | release acceptance, deployment plan |
 
-All MCP calls follow the official **servicestudio-mcp-oml** skill (tool contract, lambda format, known gaps); this skill only decides *whether* and *when* to call.
+House rules for agent work through the MCP are shared across all skills in the architecture skill's Service Studio MCP reference (`OPS-10`); each domain skill adds its own pitfalls. All MCP calls follow the official **servicestudio-mcp-oml** skill (tool contract, lambda format, known gaps); this skill only decides *whether* and *when* to call.
 
 ## 2. Hand-off contracts
 - **From brd-analysis / user-story to M2**: feature list with story and AC IDs, rules with IDs, statuses and transitions, roles, integrations, NFRs, glossary, answered questions. The spec imports IDs unchanged.

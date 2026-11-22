@@ -6,7 +6,7 @@
 - Increments: <n> accepted at G4
 - ACs: <pass> Pass · <fail> Fail · <blocked> Blocked · <nt> Not tested
 - Regression: run on <date>, result <…> (`MWV-02`)
-- AI Mentor Studio: baseline <n> findings → now <n>; new: <list with exception reasons> (`MWV-03`)
+- Code Quality (formerly AI Mentor Studio): baseline <n> findings → now <n>; new: <list with exception reasons> (`MWV-03`)
 
 ## AC matrix
 | Feature | AC | Increment | Result | Evidence | Owner if not Pass |

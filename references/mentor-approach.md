@@ -7,7 +7,7 @@ OutSystems Mentor is the generative-AI layer of OutSystems Developer Cloud (ODC)
 2. **Understand and specify**: Mentor extracts the requirements and proposes an **app specification** — the app's purpose, users/roles, features (often as user stories), the **data model** (entities, attributes, relationships, sample data), screens and logic. Mentor asks clarifying questions in conversation.
 3. **Human review before generation**: the developer edits and approves the specification.
 4. **Generate**: Mentor generates a working app (data, screens, logic) following platform best practices.
-5. **Validate continuously**: Mentor checks code quality, security, performance and architecture, and suggests fixes (the same family of patterns as **AI Mentor Studio** in O11).
+5. **Validate continuously**: Mentor checks code quality, security, performance and architecture, and suggests fixes (the same family of patterns as **Code Quality (formerly AI Mentor Studio)** in O11).
 6. **Iterate**: the team asks for changes in small steps ("add an approval step", "add a dashboard") and reviews each.
 7. **Govern**: everything still goes through the platform lifecycle (review, publish, deploy).
 
@@ -25,7 +25,7 @@ Lessons for this skill: Mentor is strongest at the **data-driven skeleton** (dat
 | Read the existing app | Service Studio MCP read tools (GA) | MCP-R |
 | Generate data, logic, screens | Service Studio MCP `applyModelApiCode` (Beta) + the official servicestudio-mcp-oml skill + house conventions | MCP-W |
 | Human review of generated changes | Compare and Merge | REV |
-| Continuous validation | TrueChange (`getValidationMessages`), companion review checklists, AI Mentor Studio (separate product, manual scan) | MCP-R + MAN |
+| Continuous validation (Code Quality is the current name of AI Mentor Studio) | TrueChange (`getValidationMessages`), companion review checklists, Code Quality (separate product, manual scan) | MCP-R + MAN |
 | Iterate in small prompts | Increments and change requests in this workflow | agent |
 | Lifecycle governance | Publish (on a yes), LifeTime deploy (manual) | REV + MAN |
 

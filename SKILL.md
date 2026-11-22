@@ -3,7 +3,7 @@ name: outsystems-ai-mentor
 description: OutSystems AI Mentor - an agent-independent, end-to-end delivery lifecycle for OutSystems 11 (O11) modelled on OutSystems Mentor (requirements, app specification, generate, validate, iterate) and run through the Service Studio MCP. Orchestrates the house skills - BRD analysis, user stories, 3-layer Canvas architecture, data model, logic, integrations, screens and style, testing and acceptance - with five gates, incremental vertical slices, an implementation review per increment, validation against requirements and acceptance criteria, and a capability matrix of what the O11 MCP can do (read GA, write Beta) versus manual work or human review. Includes an app-specification template and a workflow-state checker. Use it whenever an agent must build, extend or deliver an OutSystems 11 app or feature end to end, plan a release or resume a half-built app, even if the user only says "build this app", "generate the app from this BRD", "act like Mentor", "what's next" or "continue the build".
 license: MIT
 metadata:
-  version: 1.2.0
+  version: 1.3.0
   updated: 2026-11-22
   platform: OutSystems 11 (Reactive Web first; Mobile and Traditional Web noted) with the Service Studio MCP server (11.55.91+)
   agent-independent: true
@@ -16,7 +16,7 @@ metadata:
 
 This skill gives an AI agent working on **O11** the same loop, with the house standards built in:
 - the **agent plus the Service Studio MCP** play Mentor's generator (Model API writes, reviewed in Compare and Merge);
-- **TrueChange, AI Mentor Studio and the review checklists** play Mentor's validator;
+- **TrueChange, Code Quality (formerly AI Mentor Studio) and the review checklists** play Mentor's validator;
 - the **house skills** decide *how* each piece is designed and written. This skill decides **what comes next, who does it (MCP, agent or human), and when the work may move on**.
 
 It works for Claude Code, Codex, Copilot, Cursor, Kiro, Gemini or any custom agent, and for humans. Everything is plain Markdown plus one zero-dependency Node.js script.
@@ -41,7 +41,7 @@ This skill never redefines a companion rule; it **cites** it and hands the step 
 1. The user's decisions in this conversation and the project's written conventions (AGENTS.md, blueprint).
 2. Approved requirements: BRD/PRD, stories and acceptance criteria.
 3. The house skills (architecture first for structure, the convention skills for code).
-4. OutSystems official guidance (Canvas, best practices, Mentor/AI Mentor Studio patterns).
+4. OutSystems official guidance (Canvas, best practices, Mentor/Code Quality patterns).
 
 Security, data-integrity and transaction rules are never relaxed silently: flag the conflict and ask.
 
@@ -65,7 +65,7 @@ Security, data-integrity and transaction rules are never relaxed silently: flag 
 | **G2 Spec approved** | the user approved the App Specification (roles, features, data model, screens, logic, integrations, increments) | `MWP-07` |
 | **G3 Architecture approved** | modules/apps on the Canvas, dependency direction valid, MCP-vs-manual plan agreed, modules exist and are open | `MWA-06` |
 | **G4 Increment accepted** (each slice) | every AC of the slice Pass with evidence; TrueChange clean; implementation review done; manual steps listed | `MWT-07`, `MWV-01` |
-| **G5 Release accepted** | all increments at G4, regression run, AI Mentor Studio has no new findings, deployment plan and handover approved | `MWV-06` |
+| **G5 Release accepted** | all increments at G4, regression run, Code Quality has no new findings, deployment plan and handover approved | `MWV-06` |
 
 "Go ahead" for one gate is not approval for the next (`MWG-04`). "Just plan it" means stop at G3.
 
@@ -75,14 +75,14 @@ node scripts/check-workflow.mjs docs/mentor/workflow-state.json [--gate G1..G5] 
 ```
 
 ## MCP or manual: decide before every step
-Read `references/mcp-capability-matrix.md` before planning. In short (Service Studio 11.55.91+, contract 1, re-check on newer builds):
+Read `references/mcp-capability-matrix.md` before planning; the house-wide MCP rules (governance, edit sessions, timeouts, pitfalls) are in the architecture skill's shared Service Studio MCP reference (`OPS-10`). In short (Service Studio 11.55.91+, contract 1, re-check on newer builds):
 
 | Mark | Meaning | Examples |
 |---|---|---|
 | **MCP-R** | MCP read: **GA** for Reactive/Mobile, **Beta** for Traditional Web; leaves the module unchanged | module overview, `getDataModel`, `getScreen`, `getServerAction`, `getValidationMessages`, `listOpenModules`, `searchApps`, `runQuery` (ModelQL over the model, *not* the database) |
 | **MCP-W** | MCP write, **Beta**, staged in Compare and Merge | entities, static entities, indexes, structures, server/service/client actions, aggregates, SQL nodes, exceptions, roles, site properties, screens, blocks, widgets, REST consume/expose, email templates, timers, BPT processes (hand-verified API) |
 | **MCP-W⚠** | Beta with a known gap: verify after publish | block/screen stylesheets that are not empty, theme icon library, CORS setting, Excel export node |
-| **MAN** | Human in Service Studio, Service Center, LifeTime, Users or a browser | create app/module, **add dependencies (Manage Dependencies → Apply)**, translations (export/import), Forge installs, extensions, site-property values and secrets per environment, role assignment to users, AI Mentor Studio scans, deploy between environments, real end-to-end tests |
+| **MAN** | Human in Service Studio, Service Center, LifeTime, Users or a browser | create app/module, **add dependencies (Manage Dependencies → Apply)**, translations (export/import), Forge installs, extensions, site-property values and secrets per environment, role assignment to users, Code Quality scans, deploy between environments, real end-to-end tests |
 | **REV** | Human approval needed even when the agent can do it | Compare and Merge review, publish, data-changing test steps, changes to shared modules, the App Spec, every gate |
 
 Rules: tag every task in the increment plan with its mark (`MWG-02`); on the first write in a conversation say that MCP writes are **Beta** (`MWG-03`); never work around a MAN step: deliver the piece plus exact manual steps (`MWG-06`, `MLL-03`).
@@ -91,10 +91,10 @@ Rules: tag every task in the increment plan with its mark (`MWG-02`); on the fir
 
 ### M0 — Setup and context
 1. Confirm **O11** (not ODC), Service Studio version, MCP server started and authorized, the official `servicestudio-mcp-oml` skill installed and its contract matching (`MWS-01`); record the MCP contract and live tool set (`MWS-05`); if the ODC MCP server is also connected and the user named neither platform, ask which one before any call (`MWS-07`); confirm the **environment** with the user, Development only (`MWS-06`).
-2. **Green-field, brown-field or extension?** For brown-field, read the as-is with MCP-R: open modules, `searchApps`, data model, screens, roles, dependencies; open consumer modules yourself (the dependency map covers the open module only) (`MWS-02`, `RQA-02`).
+2. **Green-field, brown-field, extension or Traditional-to-Reactive move?** (a move uses Convert to Reactive in producer-to-consumer increments, `MWA-08`) For brown-field, read the as-is with MCP-R: open modules, `searchApps`, data model, screens, roles, dependencies; open consumer modules yourself (the dependency map covers the open module only) (`MWS-02`, `RQA-02`).
 3. Record the platform context: app and module names, theme and layout to reuse, locales, roles, shared modules that need approval (`MWS-03`).
 4. Sanitize inputs: no real personal data or secrets in prompts or default values; the agent can read secret site-property defaults (`MWS-04`, `RQA-18`).
-5. Create the workflow-state folder from `templates/`, with the agent change log (`MWG-05`, `MWG-09`); for brown-field, record the AI Mentor Studio and TrueChange baseline (`MWV-07`).
+5. Create the workflow-state folder from `templates/`, with the agent change log (`MWG-05`, `MWG-09`); for brown-field, record the Code Quality and TrueChange baseline (`MWV-07`).
 
 ### M1 — Requirements (G1)
 - A whole BRD/PRD, epic set or backlog → run **outsystems-brd-analysis** to its clarification gate. One story or a small set → **outsystems-user-story-implementation** Phases 0–3 (`MWR-01`).
@@ -125,12 +125,12 @@ Plan the slice with `templates/increment-plan.md`: tasks per layer, each with mo
 | **M5 Logic** | BL Structures, thin Service Actions over private `_Logic`, authorize → validate → act → map, state transitions with history in one transaction, user exceptions, roles; processes via BPT/CMF | backend `BLG-*`, `BTX-*`; `SEC-01`; bpt/cmf | `MWL-01`…`MWL-05` |
 | **M6 Integrations** | `_IS` wrapper per system, timeouts, normalized errors, per-environment config, mock point; prove with a real call | backend `BIN-*`, `BSC-03` | `MWI-01`…`MWI-04` |
 | **M7 Screens & UI** | CW blocks with data actions and loading/empty/error states, server-computed `Can*` flags; Front_End screens on the existing layout, roles on every screen, menu, theme and patterns | frontend `FET-*`, `FSC-*`; style guide `LAY-*`, `FRM-*` | `MWU-01`…`MWU-06` |
-| **M8 Test & Validate** | TrueChange clean; one test per AC plus negatives and roles on published code; BDDFramework for BL rules in a test module (pyramid); AI Mentor Studio scan, security first; requirements coverage; implementation review | user-story `RQT-*`; architecture `TST-*` | `MWT-01`…`MWT-09`, `MWV-01`, `MWV-07` |
+| **M8 Test & Validate** | TrueChange clean; one test per AC plus negatives and roles on published code; BDDFramework for BL rules in a test module (pyramid); Code Quality scan, security first; requirements coverage; implementation review | user-story `RQT-*`; architecture `TST-*` | `MWT-01`…`MWT-09`, `MWV-01`, `MWV-07` |
 
 The **implementation review** (`templates/increment-review.md`, `references/reviews-and-validation.md`) closes every increment: requirements coverage (feature → story → AC → element → test), a two-axis code review — Standards and Spec kept apart (`MWV-08`) —, standards (each companion checklist), MCP hygiene (all merges reviewed, nothing unpublished left behind), open MAN steps, and lessons. Then G4.
 
 ### M9 — Release and handover (G5)
-Regression across increments; AI Mentor Studio scan with no new findings versus the baseline (MAN); performance and security checks; translations imported (MAN); deployment plan via LifeTime with order, dependencies, site properties and roles per environment, test apps excluded, no more TrueChange warnings than the last release, hotfixes only through Development (MAN, REV); `templates/release-acceptance.md` with the AC matrix and the manual-step list. Say "done" only when G5 holds (`MWV-02`…`MWV-06`).
+Regression across increments; Code Quality scan with no new findings versus the baseline (MAN); performance and security checks; translations imported (MAN); deployment plan via LifeTime with order, dependencies, site properties and roles per environment, test apps excluded, no more TrueChange warnings than the last release, hotfixes only through Development (MAN, REV); `templates/release-acceptance.md` with the AC matrix and the manual-step list. Say "done" only when G5 holds (`MWV-02`…`MWV-06`).
 
 ## Rules most often broken
 - Generating screens before the spec and the data model are approved (`MWP-07`, `MLL-01`).
@@ -143,7 +143,7 @@ Regression across increments; AI Mentor Studio scan with no new findings versus 
 - Approval for one gate treated as approval for publish or deploy (`MWG-04`).
 - Human edits made while the agent's edit session is open — the agent never sees them and may overwrite them (`MWG-08`, `MLL-17`).
 - Assuming the open module is in Development; no record of what the agent changed (`MWS-06`, `MWG-09`).
-- AI Mentor Studio run only before release (`MWV-07`).
+- Code Quality run only before release (`MWV-07`).
 - Workflow state kept only in the chat, so the next session starts from zero (`MWG-05`).
 
 ## Reference map (read only what the task needs)
@@ -154,7 +154,7 @@ Regression across increments; AI Mentor Studio scan with no new findings versus 
 | `references/mcp-capability-matrix.md` | deciding MCP-R / MCP-W / MCP-W⚠ / MAN / REV for any task; known gaps; contract/version checks |
 | `references/app-specification.md` | writing or reviewing the App Specification (G2) |
 | `references/incremental-delivery.md` | slicing features into increments, ordering, rework, change requests, resuming |
-| `references/reviews-and-validation.md` | implementation reviews, requirements/AC validation, TrueChange and AI Mentor Studio, evidence |
+| `references/reviews-and-validation.md` | implementation reviews, requirements/AC validation, TrueChange and Code Quality, evidence |
 | `references/skill-coordination.md` | which companion skill owns which step, hand-off contracts, fallbacks when a skill is missing |
 | `references/agent-portability.md` | running the workflow in Claude Code, Codex, Copilot, Cursor, Kiro or a custom agent |
 | `references/lessons-learned.md` | before any real build (`MLL-*`) |

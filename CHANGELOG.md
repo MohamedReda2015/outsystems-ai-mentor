@@ -1,5 +1,12 @@
 # Changelog
 
+## 1.3.0 — 2026-11-22
+Aligned with the November 2026 cross-skill review of the house skills.
+- **Code Quality** is the current name of AI Mentor Studio; the skill now uses it throughout (state field `mentorStudio` kept for compatibility).
+- The house-wide MCP rules now live in the architecture skill's shared Service Studio MCP reference (`OPS-10`); the capability matrix and skill coordination point to it.
+- New rules: `MWA-08` Traditional-to-Reactive moves with Convert to Reactive in producer-to-consumer increments (architecture `MNT-09`); `MWT-10` performance NFRs pass only with measurements (user-story `RQT-13`).
+- Capability matrix: Convert to Reactive and Performance Analytics (Beta) rows. Companion rule ranges updated for the new house-skill releases.
+
 ## 1.2.0 — 2026-11-22
 After reviewing the official OutSystems O11 and ODC MCP skills and a third-party skills collection (maiurnarendra/outsystems-ai-skills, MIT; paraphrased).
 - `MWD-01` corrected: static entities are **not** auto-number (ids must match across environments).

@@ -53,6 +53,7 @@ Companion rules (`BR*`, `RQ*`, `ARC`, `SEC`, `BDA`, `BLG`, `FET`, `LAY`…) are 
 | MWA-05 | Blocker | Dependencies are verified by reading `eSpace.References` (after restarting the edit session) before any element uses them; "I added it" is not evidence | model |
 | MWA-06 | Blocker | G3: architecture design approved; modules exist and are open; dependencies verified; MCP-vs-manual plan agreed | state |
 | MWA-07 | Major | MCP feasibility per module is checked in M3: very large modules (reads time out at 120 s, writes at 300 s) get a plan — raised timeouts and script calls, a read-only snapshot for analysis, or new logic in a small module the user wires in by hand | artifact |
+| MWA-08 | Major | Traditional Web apps moved to Reactive use Service Studio's **Convert to Reactive** (GA; clones the module) in producer-to-consumer increments, each followed by the cleanup and endpoint security review of architecture `MNT-09`, and retested per role | artifact, model |
 
 ## MWD — Data model (M4)
 
@@ -107,6 +108,7 @@ Companion rules (`BR*`, `RQ*`, `ARC`, `SEC`, `BDA`, `BLG`, `FET`, `LAY`…) are 
 | MWT-07 | Blocker | G4: every AC of the increment is Pass with evidence, or Fail/Blocked/Not tested with reason and owner, and the increment review is done | state, script |
 | MWT-08 | Major | Defects get an ID, a fix and a re-test; ACs touched by the fix are re-run | artifact |
 | MWT-09 | Major | Automated tests follow the test pyramid (many BL/API tests, few UI journeys) and live in a dedicated test module or app (BDDFramework or equivalent) that is never deployed to Production; actions needing test access are exposed only there | artifact, model |
+| MWT-10 | Major | Performance and responsiveness NFRs pass only with measurements against their target (Performance Analytics where enabled, browser timings, request logs), recorded before and after changes (user-story `RQT-13`) | artifact, app |
 
 ## MWV — Review, release and handover (G4, M9, G5)
 
@@ -114,11 +116,11 @@ Companion rules (`BR*`, `RQ*`, `ARC`, `SEC`, `BDA`, `BLG`, `FET`, `LAY`…) are 
 |---|---|---|---|
 | MWV-01 | Blocker | Each increment ends with an implementation review: requirements coverage, standards per companion checklist, MCP hygiene, open manual steps, lessons | artifact |
 | MWV-02 | Major | Regression across all increments passes before release | artifact |
-| MWV-03 | Major | AI Mentor Studio scan (manual) shows no new findings, or each new finding has an accepted exception | artifact |
+| MWV-03 | Major | Code Quality (formerly AI Mentor Studio) scan (manual) shows no new findings, or each new finding has an accepted exception | artifact |
 | MWV-04 | Major | Deployment plan lists order, dependencies, site properties, roles, translations and data scripts per environment; deploys go through LifeTime by a human | artifact |
 | MWV-05 | Major | Handover lists every manual step, configuration value, test user and test data created, plus follow-ups | artifact |
 | MWV-06 | Blocker | G5: all increments at G4, regression passed, release acceptance approved by the user | state, script |
-| MWV-07 | Major | AI Mentor Studio analysis is recurrent (at least per increment once the code is in Development, not only before release); findings are fixed in the order Security → Performance → Architecture → Maintainability, including deprecated-element findings; trend recorded per increment | artifact, state |
+| MWV-07 | Major | Code Quality analysis is recurrent (at least per increment once the code is in Development, not only before release); findings are fixed in the order Security → Performance → Architecture → Maintainability, including deprecated-element findings; trend recorded per increment | artifact, state |
 | MWV-08 | Major | The increment review's code review runs two independent axes — Standards (code vs companion checklists, without the story) and Spec (each AC Met / Partly met / Not found / Needs testing, citing element › node) — with out-of-scope changes reported and pre-existing debt kept apart (`RQT-12`) | artifact |
 
 ## MWG — Governance, MCP and coordination (all phases)

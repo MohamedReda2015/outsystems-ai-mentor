@@ -8,7 +8,7 @@ node scripts/check-workflow.mjs scripts/examples/good-state.json --gate G4 --inc
 
 ## M0 — Setup
 - **User**: "Build a leave-request app in our O11 dev environment from this BRD."
-- **Agent**: confirms O11, asks which environment the open modules come from (the MCP can't tell) and records "Development, confirmed by Tech Lead" (`MWS-06`); checks the live tool set — `listOpenModules`, `searchApps`, `openModule` (`MWS-05`); creates `docs/mentor/` with the status file, state file and an empty agent change log (`MWG-09`). Green-field, so no AI Mentor Studio baseline.
+- **Agent**: confirms O11, asks which environment the open modules come from (the MCP can't tell) and records "Development, confirmed by Tech Lead" (`MWS-06`); checks the live tool set — `listOpenModules`, `searchApps`, `openModule` (`MWS-05`); creates `docs/mentor/` with the status file, state file and an empty agent change log (`MWG-09`). Green-field, so no Code Quality (formerly AI Mentor Studio) baseline.
 
 ## M1 — Requirements → G1
 - The BRD goes to **outsystems-brd-analysis**. It finds 2 features, 4 acceptance criteria and 3 open questions.
@@ -53,7 +53,7 @@ One-page summary shown first (`templates/app-specification.md`):
 - **Tests** on the published version:
   - AC-01 Pass: status Submitted and a history row seen.
   - AC-02 Pass: end date before start date shows the rule message and nothing is written.
-- **Review and scan**: AI Mentor Studio scan with no new findings; implementation review done (`MWV-07`, `MWV-01`).
+- **Review and scan**: Code Quality scan with no new findings; implementation review done (`MWV-07`, `MWV-01`).
 - **G4 passes.**
 
 ## Increment 2 — Approve or reject (in progress)
@@ -66,7 +66,7 @@ One-page summary shown first (`templates/app-specification.md`):
 - **G4 can pass** with AC-04 recorded as Blocked with an owner, once the user agrees.
 
 ## Still to do before release (G5)
-Increment 3, the regression run across increments, an AI Mentor Studio comparison, the LifeTime deployment plan (test app excluded, site properties and roles per environment), and the release acceptance. The checker shows exactly these as G5 blockers:
+Increment 3, the regression run across increments, an Code Quality comparison, the LifeTime deployment plan (test app excluded, site properties and roles per environment), and the release acceptance. The checker shows exactly these as G5 blockers:
 ```
 node scripts/check-workflow.mjs scripts/examples/good-state.json --gate G5
 ```

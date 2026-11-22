@@ -1,13 +1,13 @@
 # OutSystems AI Mentor
 
 [![CI](https://github.com/MohamedReda2015/outsystems-ai-mentor/actions/workflows/ci.yml/badge.svg)](https://github.com/MohamedReda2015/outsystems-ai-mentor/actions/workflows/ci.yml)
-![version](https://img.shields.io/badge/version-1.2.0-blue)
+![version](https://img.shields.io/badge/version-1.3.0-blue)
 ![platform](https://img.shields.io/badge/OutSystems-11-red)
 ![license](https://img.shields.io/badge/license-MIT-green)
 
 An **agent-independent skill** that takes an **OutSystems 11** application from business requirements to an accepted release. It works the way **OutSystems Mentor** works on ODC — *requirements → app specification → generate → validate → iterate* — but it is run by an AI agent through the **Service Studio MCP**, under your team's standards.
 
-> Not to be confused with **AI Mentor Studio**, OutSystems' own code-quality product. This skill *uses* AI Mentor Studio at every increment; it does not replace it.
+> Not to be confused with **Code Quality** (formerly AI Mentor Studio), OutSystems' own code-analysis product. This skill *uses* Code Quality at every increment; it does not replace it.
 
 It works with Claude Code, Codex, GitHub Copilot, Cursor, Kiro, Antigravity and custom agents. It is plain Markdown plus one zero-dependency Node.js checker.
 
@@ -34,7 +34,7 @@ M0 Setup → M1 Requirements ═G1═ M2 App Spec ═G2═ M3 Architecture ═G3
 | **G1** Requirements ready | no open Blocker/Major question |
 | **G2** Spec approved | you approved roles, data model, screens, logic, integrations and increments |
 | **G3** Architecture approved | modules on the 3-layer Canvas exist, dependencies are verified |
-| **G4** Increment accepted | every acceptance criterion has a result with evidence; review and AI Mentor Studio scan done |
+| **G4** Increment accepted | every acceptance criterion has a result with evidence; review and Code Quality scan done |
 | **G5** Release accepted | regression, deployment plan and your sign-off |
 
 Every task gets a **mark**, so it is clear who acts:
@@ -44,7 +44,7 @@ Every task gets a **mark**, so it is clear who acts:
 | **MCP-R** | MCP read (GA for Reactive/Mobile; Beta for Traditional Web) |
 | **MCP-W** | Model API write (Beta), reviewed in Compare and Merge |
 | **MCP-W⚠** | Beta write with a known gap; verify after publish |
-| **MAN** | a human does it: create modules, add dependencies, translations, secrets, Forge, AI Mentor Studio, LifeTime deploys |
+| **MAN** | a human does it: create modules, add dependencies, translations, secrets, Forge, Code Quality, LifeTime deploys |
 | **REV** | the agent may do it only after an explicit yes: publish, changes to shared modules |
 
 Details: [the capability matrix](references/mcp-capability-matrix.md).
@@ -129,7 +129,7 @@ npm test        # consistency checks + script regression tests (Node 16+)
 See [CONTRIBUTING.md](CONTRIBUTING.md). Security and privacy: [SECURITY.md](SECURITY.md).
 
 ## Disclaimer
-This is a community project. It is not affiliated with or endorsed by OutSystems. "OutSystems", "Mentor", "Service Studio", "LifeTime" and "AI Mentor Studio" are names of OutSystems products, used here only to describe compatibility. MCP write capabilities are Beta Features under OutSystems' terms. Verify capabilities against your Service Studio version before relying on them.
+This is a community project. It is not affiliated with or endorsed by OutSystems. "OutSystems", "Mentor", "Service Studio", "LifeTime" and "Code Quality" are names of OutSystems products, used here only to describe compatibility. MCP write capabilities are Beta Features under OutSystems' terms. Verify capabilities against your Service Studio version before relying on them.
 
 ## License
 MIT — see [LICENSE](LICENSE).
